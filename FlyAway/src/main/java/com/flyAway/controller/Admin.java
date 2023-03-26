@@ -18,17 +18,23 @@ public class Admin extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String username=request.getParameter("username");
-		String password=request.getParameter("password");
-		RequestDispatcher rd;
-		if(username != null && password != null) {
-			if(username.equals("admin") && password.equals("admin123")) {
-				rd=request.getRequestDispatcher("adminHome.html");
-				rd.forward(request,response);
-			} else {
-				rd=request.getRequestDispatcher("admin.jsp");
-				rd.forward(request,response);
+		try {
+			String username=request.getParameter("username");
+			String password=request.getParameter("password");
+			RequestDispatcher rd;
+			if(username != null && password != null) {
+				if(username.equals("admin") && password.equals("admin123")) {
+					rd=request.getRequestDispatcher("adminHome.html");
+					rd.forward(request,response);
+				} else {
+					rd=request.getRequestDispatcher("admin.jsp");
+					rd.forward(request,response);
+				}
 			}
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
 		}
 	}
 

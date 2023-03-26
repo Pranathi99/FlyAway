@@ -12,31 +12,31 @@
 		<table>
 		<tr>
 				<td>AirlineId</td>
-				<td><input type="text" name="airlineId" value="${FLIGHT.airlineId}"/></td>
+				<td><input type="text" name="airlineId" value="${FLIGHT.airlineId}" required="required"/></td>
 			</tr>
 			<tr>
 				<td>AirlineName</td>
-				<td><input name="airlineName" value="${FLIGHT.airlineName}"/></td>
+				<td><input name="airlineName" value="${FLIGHT.airlineName}" required="required"/></td>
 			</tr>
 			<tr>
 				<td>Source</td>
-				<td><input name="src" value="${FLIGHT.source}"/></td>
+				<td><input name="src" value="${FLIGHT.source}" required="required"/></td>
 			</tr>
 			<tr>
 				<td>Destination</td>
-				<td><input name="dest" value="${FLIGHT.destination}"/></td>
+				<td><input name="dest" value="${FLIGHT.destination}" required="required"/></td>
 			</tr>
 			<tr>
 				<td>AvailabilityDate</td>
-				<td><input name="date" value="${FLIGHT.availabilityDate}"/></td>
+				<td><input name="date" value="${FLIGHT.availabilityDate}" required="required"/></td>
 			</tr>
 			<tr>
 				<td>TotalAvailableSeats</td>
-				<td><input name="seats" value="${FLIGHT.totalAvailableSeats}"/></td>
+				<td><input name="seats" value="${FLIGHT.totalAvailableSeats}" required="required"/></td>
 			</tr>
 			<tr>
 				<td>Price</td>
-				<td><input name="price" value="${FLIGHT.price}"/></td>
+				<td><input name="price" value="${FLIGHT.price}" required="required"/></td>
 			</tr>
 			<tr>
 				<td></td>

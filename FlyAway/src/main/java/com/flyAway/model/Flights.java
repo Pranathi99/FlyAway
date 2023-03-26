@@ -14,6 +14,7 @@ public class Flights {
 	@Column(name="id")
 	private int id;
 	
+	
 	@Column(name="airlineName")
 	private String airlineName;
 	

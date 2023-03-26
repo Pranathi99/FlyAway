@@ -40,12 +40,19 @@ public class DeleteFlight extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		try {
 		String flight_id=request.getParameter("flightId");
 		flights.deleteFlight(flight_id);
 		
 		request.setAttribute("Flights_list", flights.getAllFlights());
 		RequestDispatcher rd=request.getRequestDispatcher("viewFlightsList.jsp");
 		rd.forward(request,response);
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
 	}
 
 	

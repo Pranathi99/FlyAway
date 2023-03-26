@@ -40,19 +40,34 @@ public class AddFlight extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String airlineId=request.getParameter("airlineId");
-		String airlineName=request.getParameter("airlineName");
-		String source=request.getParameter("src");
-		String destination=request.getParameter("dest");
-		String availabilityDate=request.getParameter("date");
-		String totalAvailableSeats=request.getParameter("seats");
-		String price=request.getParameter("price");
 		
-		flights.addFlight(airlineId, airlineName, source, destination, totalAvailableSeats,availabilityDate,price );
-		
-		request.setAttribute("Flights_list", flights.getAllFlights());
-		RequestDispatcher rd=request.getRequestDispatcher("viewFlightsList.jsp");
-		rd.forward(request,response);
+		try {
+			String airlineId=request.getParameter("airlineId");
+			String airlineName=request.getParameter("airlineName");
+			String source=request.getParameter("src");
+			String destination=request.getParameter("dest");
+			String availabilityDate=request.getParameter("date");
+			String totalAvailableSeats=request.getParameter("seats");
+			String price=request.getParameter("price");
+			
+			if(flights.checkAirlineId(airlineId))
+			{
+				request.setAttribute("errorMessage", "The AirlineId already exists. Please enter a different value.");
+			    RequestDispatcher dispatcher = request.getRequestDispatcher("addFlight.jsp");
+			    dispatcher.forward(request, response);
+			    return;
+			}
+			
+			flights.addFlight(airlineId, airlineName, source, destination, totalAvailableSeats,availabilityDate,price );
+			
+			request.setAttribute("Flights_list", flights.getAllFlights());
+			RequestDispatcher rd=request.getRequestDispatcher("viewFlightsList.jsp");
+			rd.forward(request,response);
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

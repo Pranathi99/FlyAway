@@ -7,36 +7,39 @@
 <title>FlyAway</title>
 </head>
 <body>
+<c:if test="${not empty errorMessage}">
+  <p class="error-message" style="color:red;font-size:2rem">${errorMessage}</p>
+</c:if>
 <h3>Add Flight Details</h3>
 <form action="AddFlight" method="post">
 		<table>
 		<tr>
 				<td>AirlineId</td>
-				<td><input type="text" name="airlineId" /></td>
+				<td><input type="text" name="airlineId" required="required"/></td>
 			</tr>
 			<tr>
 				<td>AirlineName</td>
-				<td><input name="airlineName" /></td>
+				<td><input name="airlineName" required="required"/></td>
 			</tr>
 			<tr>
 				<td>Source</td>
-				<td><input name="src" /></td>
+				<td><input name="src" required="required"/></td>
 			</tr>
 			<tr>
 				<td>Destination</td>
-				<td><input name="dest" /></td>
+				<td><input name="dest" required="required"/></td>
 			</tr>
 			<tr>
 				<td>AvailabilityDate</td>
-				<td><input name="date" type="date" /></td>
+				<td><input name="date" type="date" required="required"/></td>
 			</tr>
 			<tr>
 				<td>TotalAvailableSeats</td>
-				<td><input name="seats" /></td>
+				<td><input name="seats" required="required"/></td>
 			</tr>
 			<tr>
 				<td>Price</td>
-				<td><input name="price" /></td>
+				<td><input name="price" required="required"/></td>
 			</tr>
 			<tr>
 				<td></td>

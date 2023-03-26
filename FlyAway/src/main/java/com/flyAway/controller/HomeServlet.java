@@ -46,28 +46,34 @@ public class HomeServlet extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		    ServletContext context = servletConfig.getServletContext();
-			String src=request.getParameter("source");
-			String dest=request.getParameter("destination");
-			String date=request.getParameter("travelDate");
-			String noOfSeats=request.getParameter("noOfSeats");
 			
-			System.out.println(src);
-			System.out.println(dest);
-			
-			if(date!=null && (src==null || src.equals("")) && (dest==null || dest.equals("")))
-			{
-				request.setAttribute("flight_list", flightUtil.getFlightsByDate(date,noOfSeats));
-			}
-			else
-			{
-				request.setAttribute("flight_list", flightUtil.getFlights(date,src,dest,noOfSeats));
-			}
-			context.setAttribute("noOfSeats", noOfSeats);
-			
-			RequestDispatcher rd=request.getRequestDispatcher("viewAvailableFlights.jsp");
-			rd.forward(request, response);
+		try {
+			    ServletContext context = servletConfig.getServletContext();
+				String src=request.getParameter("source");
+				String dest=request.getParameter("destination");
+				String date=request.getParameter("travelDate");
+				String noOfSeats=request.getParameter("noOfSeats");
+				
+				System.out.println(src);
+				System.out.println(dest);
+				
+				if(date!=null && (src==null || src.equals("")) && (dest==null || dest.equals("")))
+				{
+					request.setAttribute("flight_list", flightUtil.getFlightsByDate(date,noOfSeats));
+				}
+				else
+				{
+					request.setAttribute("flight_list", flightUtil.getFlights(date,src,dest,noOfSeats));
+				}
+				context.setAttribute("noOfSeats", noOfSeats);
+				
+				RequestDispatcher rd=request.getRequestDispatcher("viewAvailableFlights.jsp");
+				rd.forward(request, response);
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

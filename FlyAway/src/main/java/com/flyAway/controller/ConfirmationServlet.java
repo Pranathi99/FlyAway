@@ -51,24 +51,31 @@ public class ConfirmationServlet extends HttpServlet {
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 			
-			ServletContext context = servletConfig.getServletContext();
-			String id=request.getParameter("flightId");
-			Flights flight=flights.getFlightById(id);
-			
-			String noOfSeats=(String) getServletContext().getAttribute("noOfSeats");
-			int seats=Integer.parseInt(noOfSeats);
-			List<Address>address=new ArrayList<Address>();
-			for(int i=0;i<seats;i++)
-				address.add(new Address(request.getParameter("city"+i),request.getParameter("state"+i),request.getParameter("pincode"+i)));
-			FlightDetails flightDetails=new FlightDetails(Integer.parseInt(noOfSeats),flight);
-			List<Passenger>passenger=new ArrayList<Passenger>();
-			for(int i=0;i<seats;i++)
-				passenger.add(new Passenger(request.getParameter("fname"+i),request.getParameter("lname"+i),request.getParameter("email"+i),request.getParameter("mobileNo"+i),address.get(i),flightDetails));
-			getServletContext().setAttribute("Passenger_details", passenger);
-			getServletContext().setAttribute("Flight_details", flightDetails);
-			
-			RequestDispatcher rd=request.getRequestDispatcher("confirmation.jsp");
-			rd.forward(request, response);
+			try 
+			{
+				ServletContext context = servletConfig.getServletContext();
+				String id=request.getParameter("flightId");
+				Flights flight=flights.getFlightById(id);
+				
+				String noOfSeats=(String) getServletContext().getAttribute("noOfSeats");
+				int seats=Integer.parseInt(noOfSeats);
+				List<Address>address=new ArrayList<Address>();
+				for(int i=0;i<seats;i++)
+					address.add(new Address(request.getParameter("city"+i),request.getParameter("state"+i),request.getParameter("pincode"+i)));
+				FlightDetails flightDetails=new FlightDetails(Integer.parseInt(noOfSeats),flight);
+				List<Passenger>passenger=new ArrayList<Passenger>();
+				for(int i=0;i<seats;i++)
+					passenger.add(new Passenger(request.getParameter("fname"+i),request.getParameter("lname"+i),request.getParameter("email"+i),request.getParameter("mobileNo"+i),address.get(i),flightDetails));
+				getServletContext().setAttribute("Passenger_details", passenger);
+				getServletContext().setAttribute("Flight_details", flightDetails);
+				
+				RequestDispatcher rd=request.getRequestDispatcher("confirmation.jsp");
+				rd.forward(request, response);
+			}
+			catch(Exception ex)
+			{
+				ex.printStackTrace();
+			}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

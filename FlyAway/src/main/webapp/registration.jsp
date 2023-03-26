@@ -15,31 +15,31 @@
 		<table>
 				<tr>
 					<td>FirstName : </td>
-					<td><input type="text" name="fname${i}"/></td>
+					<td><input type="text" name="fname${i}" required="required"/></td>
 				</tr>
 				<tr>
 					<td>LastName : </td>
-					<td><input type="text" name="lname${i}"/></td>
+					<td><input type="text" name="lname${i}" required="required"/></td>
 				</tr>
 				<tr>
 					<td>Email : </td>
-					<td><input type="email" name="email${i}"/></td>
+					<td><input type="email" name="email${i}" required="required"/></td>
 				</tr>
 				<tr>
 					<td>MobileNo : </td>
-					<td><input type="text" name="mobileNo${i}"/></td>
+					<td><input type="text" name="mobileNo${i}" required="required"/></td>
 				</tr>
 				<tr>
 					<td>City : </td>
-					<td><input type="text" name="city${i}"/></td>
+					<td><input type="text" name="city${i}" required="required"/></td>
 				</tr>
 				<tr>
 					<td>State : </td>
-					<td><input type="text" name="state${i}"/></td>
+					<td><input type="text" name="state${i}" required="required"/></td>
 				</tr>
 			<tr>
 				<td>Pincode : </td>
-				<td><input type="text" name="pincode${i}"/></td>
+				<td><input type="text" name="pincode${i}" required="required"/></td>
 			</tr>
 		</table>
 	</c:forEach>

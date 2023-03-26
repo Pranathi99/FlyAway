@@ -8,7 +8,6 @@ import java.util.Set;
 
 import javax.sql.DataSource;
 
-import org.hibernate.Criteria;
 import org.hibernate.Session;
 
 import com.Hibernate.util.HibernateDemoUtil;
@@ -17,11 +16,9 @@ import com.flyAway.model.Flights;
 public class FlightUtil {
 	DataSource ds;
 	Session session;
-	Criteria criteria;
 	
 	public FlightUtil(DataSource ds){
 		this.ds=ds;
-		//System.out.println(ds);
 		session=HibernateDemoUtil.getSessionfactory().openSession();
 	}
 	
@@ -37,6 +34,7 @@ public class FlightUtil {
 				.setParameter("seats", noOfSeats)
 				.list();
 		session.getTransaction().commit();
+		session.close();
 		return flight_list;
 	}
 	
@@ -47,6 +45,7 @@ public class FlightUtil {
 		Flights flight=(Flights) session.createQuery("from Flights where airlineId=:id",Flights.class)
 				.setParameter("id",id).getSingleResult();
 		session.getTransaction().commit();
+		session.close();
 		return flight;
 	}
 
@@ -60,6 +59,7 @@ public class FlightUtil {
 					.setParameter("id",id).getSingleResult();
 			session.delete(flight);
 			session.getTransaction().commit();
+			session.close();
 		}
 		catch(Exception ex)
 		{
@@ -72,7 +72,8 @@ public class FlightUtil {
 		session=HibernateDemoUtil.getSessionfactory().openSession();
 		session.beginTransaction();
 		Flights flight=(Flights) session.createQuery("from Flights where airlineId=:id",Flights.class)
-				.setParameter("id",airlineId).getSingleResult();
+				.setParameter("id",airlineId)
+				.getSingleResult();
 		flight.setAirlineId(airlineId);
 		flight.setAirlineName(airlineName);
 		flight.setSource(source);
@@ -81,6 +82,7 @@ public class FlightUtil {
 		flight.setAvailabilityDate(availabilityDate);
 		flight.setPrice(Integer.parseInt(price));
 		session.getTransaction().commit();
+		session.close();
 	}
 
 	public Flights getFlight(String id) 
@@ -89,6 +91,7 @@ public class FlightUtil {
 		session.beginTransaction();
 		Flights flight=session.load(Flights.class,Integer.parseInt(id));
 		session.getTransaction().commit();
+		session.close();
 		return flight;		
 	}
 
@@ -99,6 +102,7 @@ public class FlightUtil {
 		Flights flight=new Flights(airlineId, airlineName, source, destination, Integer.parseInt(totalAvailableSeats),availabilityDate,Integer.parseInt(price));
 		session.save(flight);
 		session.getTransaction().commit();
+		session.close();
 	}
 	
 	public List<Object> getLocations(){
@@ -108,6 +112,7 @@ public class FlightUtil {
 		String query = "SELECT source,destination FROM Flights";
 		List<Object> loc_list = session.createQuery(query).getResultList();
 		session.getTransaction().commit();
+		session.close();
 		return loc_list;
 	}
 
@@ -118,6 +123,7 @@ public class FlightUtil {
 		String query = "SELECT airlineName FROM Flights";
 		Set<String> airlines_list = new HashSet<String>(session.createQuery(query).getResultList());
 		session.getTransaction().commit();
+		session.close();
 		return airlines_list;
 	}
 
@@ -128,6 +134,7 @@ public class FlightUtil {
 		session.beginTransaction();
 		flight_list=session.createQuery("from Flights",Flights.class).list();
 		session.getTransaction().commit();
+		session.close();
 		return flight_list;
 	}
 
@@ -139,6 +146,25 @@ public class FlightUtil {
 				.setParameter("noOfSeats", noOfSeats)
 				.list();
 		session.getTransaction().commit();
+		session.close();
 		return flights;
+	}
+
+	public boolean checkAirlineId(String airlineId) {
+		session=HibernateDemoUtil.getSessionfactory().openSession();
+		session.beginTransaction();
+		int size=session.createQuery("from Flights where airlineId=:id",Flights.class)
+				.setParameter("id", airlineId)
+				.list().size();
+		System.out.println("Size->"+size);
+		if(size>=1)
+		{
+			session.getTransaction().commit();
+			session.close();
+			return true;
+		}
+		session.getTransaction().commit();
+		session.close();
+		return false;
 	}
 }

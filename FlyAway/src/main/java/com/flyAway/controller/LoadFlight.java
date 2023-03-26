@@ -42,12 +42,18 @@ public class LoadFlight extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		try {
 		String flight_id=request.getParameter("flightId");
 		Flights flight=flights.getFlightById(flight_id);
 		
 		request.setAttribute("FLIGHT", flight);
 		RequestDispatcher rd=request.getRequestDispatcher("updateFlight.jsp");
 		rd.forward(request,response);
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

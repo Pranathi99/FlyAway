@@ -12,19 +12,19 @@
 		<table>
 			<tr>
 				<td>Name on Card : </td>
-				<td><input type="text" name="cardname" placeholder="ABC"></td>
+				<td><input type="text" name="cardname" placeholder="ABC" required="required"></td>
 		    </tr>
 		    <tr>
 		    	<td>Credit card number : </td>
-		    	<td><input type="text" name="cardnumber" placeholder="1111-2222-3333-4444"></td>
+		    	<td><input type="text" name="cardnumber" placeholder="1111-2222-3333-4444" required="required"></td>
 		    </tr>
 		    <tr>
 		    	<td>Exp Date : </td>
-		    	<td><input type="text" name="expdate" placeholder="01/01"></td>
+		    	<td><input type="text" name="expdate" placeholder="01/01" required="required"></td>
 		    </tr>
 		    <tr>
 		    	<td>CVV : </td>
-		    	<td><input type="text" name="cvv" placeholder="352"></td>
+		    	<td><input type="text" name="cvv" placeholder="352" required="required"></td>
 		    </tr>
 		    <tr>
 		    	<td></td>

@@ -20,10 +20,16 @@ public class RegisterServlet extends HttpServlet {
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		try {
 		String id=request.getParameter("flightId");
 		request.setAttribute("flight_id", id);
 		RequestDispatcher rd=request.getRequestDispatcher("registration.jsp");
 		rd.forward(request,response);
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

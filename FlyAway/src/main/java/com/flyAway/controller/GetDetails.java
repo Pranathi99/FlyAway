@@ -44,33 +44,39 @@ public class GetDetails extends HttpServlet {
     }
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String param=request.getParameter("param");
-		if(param.equals("getLocList"))
-		{
-			List<Object>list=flights.getLocations();
-			
-			request.setAttribute("Loc_list",list);
-			
-			RequestDispatcher rd=request.getRequestDispatcher("viewLocations.jsp");
-			rd.forward(request, response);
+		try {
+			String param=request.getParameter("param");
+			if(param.equals("getLocList"))
+			{
+				List<Object>list=flights.getLocations();
+				
+				request.setAttribute("Loc_list",list);
+				
+				RequestDispatcher rd=request.getRequestDispatcher("viewLocations.jsp");
+				rd.forward(request, response);
+			}
+			if(param.equals("getAirlinesList"))
+			{
+				Set<String>list=flights.getAirlines();
+				
+				request.setAttribute("Airlines_list",list);
+				
+				RequestDispatcher rd=request.getRequestDispatcher("viewAirlines.jsp");
+				rd.forward(request, response);
+			}
+			if(param.equals("getFlightsList"))
+			{
+				List<Flights>list=flights.getAllFlights();
+				
+				request.setAttribute("Flights_list",list);
+				
+				RequestDispatcher rd=request.getRequestDispatcher("viewFlightsList.jsp");
+				rd.forward(request, response);
+			}
 		}
-		if(param.equals("getAirlinesList"))
+		catch(Exception ex)
 		{
-			Set<String>list=flights.getAirlines();
-			
-			request.setAttribute("Airlines_list",list);
-			
-			RequestDispatcher rd=request.getRequestDispatcher("viewAirlines.jsp");
-			rd.forward(request, response);
-		}
-		if(param.equals("getFlightsList"))
-		{
-			List<Flights>list=flights.getAllFlights();
-			
-			request.setAttribute("Flights_list",list);
-			
-			RequestDispatcher rd=request.getRequestDispatcher("viewFlightsList.jsp");
-			rd.forward(request, response);
+			ex.printStackTrace();
 		}
 	}
 
