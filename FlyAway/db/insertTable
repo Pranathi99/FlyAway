@@ -1,0 +1,4 @@
+insert into flights (airline,airlineId,availabilityDate,source,destination,availableSeats) values("Akasa Airlines","A001","2023-03-29","Hyderabad","Bangalore",10);
+insert into flights (airline,airlineId,availabilityDate,source,destination,availableSeats)values("Indigo Airlines","I001","2023-03-28","Mumbai","Bangalore",15);
+insert into flights (airline,airlineId,availabilityDate,source,destination,availableSeats)values("SpiceJet Airlines","S001","2023-03-29","Bangalore","Delhi",10);
+insert into flights (airline,airlineId,availabilityDate,source,destination,availableSeats)values("Indigo Airlines","I002","2023-03-28","Hyderabad","Chennai",20);
