@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>FlyAway App</title>
+<title>FlyAway</title>
 </head>
 <body>
 <h1>Confirm the below Details:</h1>
@@ -63,5 +63,7 @@
 		<br/>
 		<span style="align:center"><input type="submit" value="Proceed to Payment"></span>
 	</form>
+	<br/>
+	<a href="userHome.html">Home</a>
 </body>
 </html>

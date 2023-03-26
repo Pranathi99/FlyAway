@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,6 +8,9 @@
 <title>FlyAway</title>
 </head>
 <body>
+<c:if test="${not empty errorMessage}">
+  <p class="error-message" style="color:red;font-size:2rem">${errorMessage}</p>
+</c:if>
 <h3>Update Flight Details</h3>
 	<form action="UpdateFlight" method="post">
 		<table>

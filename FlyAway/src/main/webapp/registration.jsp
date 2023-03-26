@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>FlyAway</title>
 </head>
 <body>
 <h1>Enter Personal Details:</h1>
@@ -45,6 +45,8 @@
 	</c:forEach>
 			<input type="submit" value="submit"/>
 	</form>
+	<br/>
+	<a href="userHome.html">Home</a>
 </body>
 </body>
 </html>

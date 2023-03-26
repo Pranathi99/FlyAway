@@ -50,6 +50,8 @@ public class AddFlight extends HttpServlet {
 			String totalAvailableSeats=request.getParameter("seats");
 			String price=request.getParameter("price");
 			
+			int cost=Integer.parseInt(price);
+			
 			if(flights.checkAirlineId(airlineId))
 			{
 				request.setAttribute("errorMessage", "The AirlineId already exists. Please enter a different value.");
@@ -63,6 +65,13 @@ public class AddFlight extends HttpServlet {
 			request.setAttribute("Flights_list", flights.getAllFlights());
 			RequestDispatcher rd=request.getRequestDispatcher("viewFlightsList.jsp");
 			rd.forward(request,response);
+		}
+		catch(NumberFormatException ex)
+		{
+			request.setAttribute("errorMessage", "Please enter a valid price!");
+		    RequestDispatcher dispatcher = request.getRequestDispatcher("addFlight.jsp");
+		    dispatcher.forward(request, response);
+		    return;
 		}
 		catch(Exception ex)
 		{

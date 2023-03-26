@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
+import org.hibernate.type.NumericBooleanType;
+
 import com.flyAway.model.Flights;
 import com.flyAway.util.FlightUtil;
 
@@ -41,6 +43,7 @@ public class UpdateFlight extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		try {
 		String airlineId=request.getParameter("airlineId");
 		String airlineName=request.getParameter("airlineName");
 		String source=request.getParameter("src");
@@ -49,11 +52,25 @@ public class UpdateFlight extends HttpServlet {
 		String totalAvailableSeats=request.getParameter("seats");
 		String price=request.getParameter("price");
 		
+		int cost=Integer.parseInt(price);
+		
 		flights.updateFlight(airlineId, airlineName, source, destination,  totalAvailableSeats,availabilityDate,price);
 		
 		request.setAttribute("Flights_list", flights.getAllFlights());
 		RequestDispatcher rd=request.getRequestDispatcher("viewFlightsList.jsp");
 		rd.forward(request,response);
+		}
+		catch(NumberFormatException ex)
+		{
+			request.setAttribute("errorMessage", "Please enter a valid price!");
+		    RequestDispatcher dispatcher = request.getRequestDispatcher("updateFlight.jsp");
+		    dispatcher.forward(request, response);
+		    return;
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
