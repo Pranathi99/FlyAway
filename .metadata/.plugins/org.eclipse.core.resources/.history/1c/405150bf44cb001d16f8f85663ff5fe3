@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>FlyAway</title>
+</head>
+<body>
+	<ol>
+		<li><a href="changePassword.jsp"/>Change password</li>
+		<li>List of Source Locations</li>
+		<li>List of Destination Locations</li>
+		<li>List of Airlines available</li>
+		<li>List of flights</li>
+	</ol>
+</body>
+</html>

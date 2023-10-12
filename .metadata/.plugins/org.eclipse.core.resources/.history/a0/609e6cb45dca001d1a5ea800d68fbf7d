@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>FlyAway pp</title>
+</head>
+<body>
+	<h1>Welcome to FlyAway App</h1>
+	<ol>
+		<li><a href="AdminLogin">Admin Login</li>
+		<li><a href="Home">Home</li>
+	</ol>
+</body>
+</html>

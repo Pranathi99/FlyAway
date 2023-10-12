@@ -1,0 +1,75 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>FlyAway App</title>
+</head>
+<body>
+<h1>Confirm the below Details:</h1>
+	<form action="payment.jsp" method="post">
+		<h3>Flight Details:</h3>
+			<table border="2">
+				<tr>
+					<td>Airline ID : </td>
+					<td><h3>${Flight_details.flight.airlineId }</h3></td>
+				</tr>
+				<tr>
+					<td>Airline Name : </td>
+					<td><h3>${Flight_details.flight.airlineName }</h3></td>
+				</tr>
+				<tr>
+					<td>Source Location : </td>
+					<td><h3>${Flight_details.flight.source }</h3></td>
+				</tr>
+				<tr>
+					<td>Destination Location : </td>
+					<td><h3>${Flight_details.flight.destination }</h3></td>
+				</tr>
+				<tr>
+					<td>No of Seats : </td>
+					<td><h3>${Flight_details.noOfSeats }</h3></td>
+				</tr>
+				<tr>
+					<td>Date of Travel : </td>
+					<td><h3>${Flight_details.flight.availabilityDate }</h3></td>
+				</tr>
+				<c:set var="priceStr" value="${Flight_details.flight.price}" />
+				<c:set var="price" value="${Integer.parseInt(priceStr)}" />
+				<c:set var="seatsStr" value="${Flight_details.noOfSeats}"/>
+				<c:set var="seats" value="${Integer.parseInt(seatsStr)}" />
+				<tr>
+					<td>Total Price : </td>
+					<td><h3>${price*seats}</h3></td>
+				</tr>
+			</table>
+		<br/>
+		<h2>Passenger Details:</h2>
+			<table border="2">
+				<tr>
+					<th>FirstName</th>
+					<th>LastName</th>
+					<th>EmailId</th>
+					<th>MobileNo.</th>
+					<th>City</th>
+					<th>State</th>
+					<th>Pincode</th>
+				</tr>
+				<tr>
+					<td><h3>${Passenger_details.firstName }</h3></td>
+					<td><h3>${Passenger_details.lastName }</h3></td>
+					<td><h3>${Passenger_details.email }</h3></td>
+					<td><h3>${Passenger_details.mobileNo }</h3></td>
+					<td><h3>${Passenger_details.address.city }</h3></td>
+					<td><h3>${Passenger_details.address.state }</h3></td>
+					<td><h3>${Passenger_details.address.pincode }</h3></td>
+				</tr>
+			</table>
+		<br/>
+		<span style="align:center"><input type="submit" value="Proceed to Payment"></span>
+	</form>
+</body>
+</html>

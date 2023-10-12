@@ -1,0 +1,79 @@
+package com.flyAway.controller;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.annotation.Resource;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.sql.DataSource;
+
+import com.flyAway.model.Address;
+import com.flyAway.model.FlightDetails;
+import com.flyAway.model.Flights;
+import com.flyAway.model.Passenger;
+import com.flyAway.util.FlightUtil;
+
+@WebServlet("/Confirmation")
+public class ConfirmationServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+	
+	@Resource(name="jdbc/flyawayapp")
+	private DataSource datasource;
+	
+	private FlightUtil flights;
+	ServletConfig servletConfig;
+    
+    public ConfirmationServlet() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+    	try {
+    		super.init(config);
+    		this.servletConfig = config;
+			flights=new FlightUtil(datasource);
+		} 
+    	catch (Exception ex) {
+			// TODO Auto-generated catch block
+			throw new ServletException();
+		}
+    }
+    
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+			
+			ServletContext context = servletConfig.getServletContext();
+			String id=request.getParameter("flightId");
+			Flights flight=flights.getFlightById(id);
+			
+			String noOfSeats=(String) getServletContext().getAttribute("noOfSeats");
+			int seats=Integer.parseInt(noOfSeats);
+			List<Address>address=new ArrayList<Address>();
+			for(int i=1;i<=seats;i++)
+				address.add(new Address(request.getParameter("city"+i),request.getParameter("state"+i),request.getParameter("pincode"+i)));
+			FlightDetails flightDetails=new FlightDetails(Integer.parseInt(noOfSeats),flight);
+			List<Passenger>passenger=new ArrayList<Passenger>();
+			for(int i=1;i<=seats;i++)
+				passenger.add(new Passenger(request.getParameter("fname"+i),request.getParameter("lname"+i),request.getParameter("email"+i),request.getParameter("mobileNo"+i),address.get(i),flightDetails));
+			getServletContext().setAttribute("Passenger_details", passenger);
+			getServletContext().setAttribute("Flight_details", flightDetails);
+			
+			RequestDispatcher rd=request.getRequestDispatcher("confirmation.jsp");
+			rd.forward(request, response);
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		ServletContext context = servletConfig.getServletContext();
+		doGet(request, response);
+	}
+
+}

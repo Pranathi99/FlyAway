@@ -1,0 +1,5 @@
+package com.flyAway.model;
+
+public class Address {
+	private String city,state,pincode;
+}

@@ -1,0 +1,48 @@
+package com.flyAway.model;
+
+public class Flight {
+	private String airlineName,airlineId;
+	private String source,destination;
+	private int totalAvailableSeats;
+	
+	public String getAirlineName() {
+		return airlineName;
+	}
+	
+	public Flight(String airlineName, String airlineId, String source, String destination, int totalAvailableSeats) {
+		super();
+		this.airlineName = airlineName;
+		this.airlineId = airlineId;
+		this.source = source;
+		this.destination = destination;
+		this.totalAvailableSeats = totalAvailableSeats;
+	}
+
+	public void setAirlineName(String airlineName) {
+		this.airlineName = airlineName;
+	}
+	public String getAirlineId() {
+		return airlineId;
+	}
+	public void setAirlineId(String airlineId) {
+		this.airlineId = airlineId;
+	}
+	public String getSource() {
+		return source;
+	}
+	public void setSource(String source) {
+		this.source = source;
+	}
+	public String getDestination() {
+		return destination;
+	}
+	public void setDestination(String destination) {
+		this.destination = destination;
+	}
+	public int getTotalAvailableSeats() {
+		return totalAvailableSeats;
+	}
+	public void setTotalAvailableSeats(int totalAvailableSeats) {
+		this.totalAvailableSeats = totalAvailableSeats;
+	}
+}

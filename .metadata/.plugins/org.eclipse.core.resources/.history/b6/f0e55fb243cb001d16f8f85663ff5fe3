@@ -1,0 +1,32 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>FlyAway</title>
+</head>
+<body>
+<%
+	String username=request.getParameter("username");
+	String password=request.getParameter("password");
+	if(username != null && password != null) {
+		if(username.equals("admin") && password.equals("admin123")) {
+			request.setAttribute("username", username);
+			request.setAttribute("password",password);
+			RequestDispatcher rd=request.getRequestDispatcher("adminHome.html");
+			rd.forward(request,response);
+			return;
+		} else {
+			out.println("<p>Invalid username or password</p>");
+		}
+	}
+%>
+<h1>Admin Login</h1>
+<form method="post">
+	Username:<input type="text" name="username"/><br/>
+	Password:<input type="password" name="password"/><br/>
+	<input type="submit" value="Login"/>
+</form>
+</body>
+</html>

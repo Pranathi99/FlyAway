@@ -1,0 +1,19 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<form action="finalTicket.jsp" method="post">
+		<h1>Enter Payment Details:</h1>
+		Name on Card : <input type="text" name="cardname" placeholder="ABC"><br/>
+	    Credit card number : <input type="text" name="cardnumber" placeholder="1111-2222-3333-4444"><br/>
+	    Exp Date : <input type="text" name="expdate" placeholder="01/01"> <br/>
+	    CVV : <input type="text" name="cvv" placeholder="352"><br/>
+	    <input type="submit" value="Submit"/>
+    </form>
+</body>
+</html>

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>FlyAway</title>
+</head>
+<body>
+<h1>Welcome, Admin!</h1>
+	<ol>
+		<li><a href="changePassword.jsp"/>Change password</li>
+		<li><a href="getDetails?param=getLocList"/>List of Locations</li>
+		<li>List of Airlines available</li>
+		<li>List of flights</li>
+		<li>Add Airline detail</li>
+	</ol>
+</body>
+</html>

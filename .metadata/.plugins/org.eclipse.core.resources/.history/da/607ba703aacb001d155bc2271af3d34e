@@ -1,0 +1,120 @@
+package com.flyAway.util;
+
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import javax.sql.DataSource;
+
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+
+import com.Hibernate.util.HibernateDemoUtil;
+import com.flyAway.model.Flights;
+
+public class FlightUtil {
+	DataSource ds;
+	Session session;
+	Criteria criteria;
+	
+	public FlightUtil(DataSource ds){
+		this.ds=ds;
+		//System.out.println(ds);
+		session=HibernateDemoUtil.getSessionfactory().openSession();
+	}
+	
+	public List<Flights> getFlights(String date, String src, String dest, String noOfSeats)
+	{	
+		List<Flights>flight_list=new ArrayList<Flights>();
+		session.beginTransaction();
+		flight_list=session.createQuery("from Flights where source=:src and destination=:dest and availabilityDate=:date and availableSeats>=:seats",Flights.class)
+				.setParameter("src",src)
+				.setParameter("dest",dest)
+				.setParameter("date", date)
+				.setParameter("seats", noOfSeats)
+				.list();
+		session.getTransaction().commit();
+		return flight_list;
+	}
+	
+	public Flights getFlightById(String id)
+	{
+		session.beginTransaction();
+		Flights flight=(Flights) session.createQuery("from Flights where airlineId=:id",Flights.class)
+				.setParameter("id",id).getSingleResult();
+		session.getTransaction().commit();
+		return flight;
+	}
+
+	public void deleteFlight(String id) 
+	{	
+		try 
+		{
+			session.beginTransaction();
+			Flights flight=session.load(Flights.class, Integer.parseInt(id));
+			session.delete(flight);
+			session.getTransaction().commit();
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+	}
+
+	public void updateFlight(String airlineId,String airlineName,String source,String destination,String totalAvailableSeats,String availabilityDate,String price) 
+	{	
+		session.beginTransaction();
+		Flights flight=(Flights) session.createQuery("from Flights where airlineId=:id",Flights.class)
+				.setParameter("id",airlineId).getSingleResult();
+		flight.setAirlineId(airlineId);
+		flight.setAirlineName(airlineName);
+		flight.setSource(source);
+		flight.setDestination(destination);
+		flight.setTotalAvailableSeats(Integer.parseInt(totalAvailableSeats));
+		flight.setAvailabilityDate(availabilityDate);
+		flight.setPrice(Integer.parseInt(price));
+		session.getTransaction().commit();
+	}
+
+	public Flights getFlight(String id) 
+	{
+		session.beginTransaction();
+		Flights flight=session.load(Flights.class,Integer.parseInt(id));
+		session.getTransaction().commit();
+		return flight;		
+	}
+
+	public void addFlight(String airline, String airlineId, String source,String destination,String totalAvailableSeats,String availabilityDate,String price) 
+	{	
+		session.beginTransaction();
+		Flights flight=new Flights(airline, airlineId, source, destination, Integer.parseInt(totalAvailableSeats),availabilityDate,Integer.parseInt(price));
+		session.save(flight);
+		session.getTransaction().commit();
+	}
+	
+	public List<Object> getLocations(){
+		session.beginTransaction();
+		String query = "SELECT source,destination FROM Flights";
+		List<Object> loc_list = session.createQuery(query).getResultList();
+		session.getTransaction().commit();
+		return loc_list;
+	}
+
+	public Set<String> getAirlines() {
+		session.beginTransaction();
+		String query = "SELECT airlineName FROM Flights";
+		Set<String> airlines_list = new HashSet<String>(session.createQuery(query).getResultList());
+		session.getTransaction().commit();
+		return airlines_list;
+	}
+
+	public List<Flights> getAllFlights() {
+		List<Flights>flight_list=new ArrayList<Flights>();
+		session.beginTransaction();
+		flight_list=session.createQuery("from Flights",Flights.class).list();
+		session.getTransaction().commit();
+		return flight_list;
+	}
+}

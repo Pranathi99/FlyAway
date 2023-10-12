@@ -1,0 +1,66 @@
+package com.flyAway.controller;
+
+import java.io.IOException;
+
+import javax.annotation.Resource;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.sql.DataSource;
+
+import com.flyAway.model.Address;
+import com.flyAway.model.FlightDetails;
+import com.flyAway.model.Flights;
+import com.flyAway.model.Passenger;
+import com.flyAway.util.FlightUtil;
+
+@WebServlet("/Confirmation")
+public class ConfirmationServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+	
+	@Resource(name="jdbc/flyawayapp")
+	private DataSource datasource;
+	
+	private FlightUtil flights;
+    
+    public ConfirmationServlet() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+    	try {
+			flights=new FlightUtil(datasource);
+		} 
+    	catch (Exception ex) {
+			// TODO Auto-generated catch block
+			throw new ServletException();
+		}
+    }
+    
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String id=request.getParameter("flightId");
+		Flights flight=flights.getFlightById(id);
+		
+		String noOfSeats=(String) getServletContext().getAttribute("noOfSeats");
+		
+		Address address=new Address(request.getParameter("city"),request.getParameter("state"),request.getParameter("pincode"));
+		FlightDetails flightDetails=new FlightDetails(Integer.parseInt(request.getParameter("noOfSeats")),flight);
+		Passenger passenger=new Passenger(request.getParameter("fname"),request.getParameter("lname"),request.getParameter("email"),request.getParameter("mobileNo"),address,flightDetails);
+		request.setAttribute("Passenger_details", passenger);
+		request.setAttribute("Flight_details", flightDetails);
+		
+		RequestDispatcher rd=request.getRequestDispatcher("confirmation.jsp");
+		rd.forward(request, response);
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doGet(request, response);
+	}
+
+}

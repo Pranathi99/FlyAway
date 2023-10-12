@@ -1,0 +1,58 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>FlyAway</title>
+</head>
+<body>
+<span style="color:green;font-size: 20px">Purchase Successful!</span>
+<h2>Flight Details:</h2>
+			<table>
+				<tr>
+					<td>Airline ID : </td>
+					<td><h3>${ApplicationScope.Flight_details.flight.airlineId }</h3></td>
+				</tr>
+				<tr>
+					<td>Airline Name : </td>
+					<td><h3>${ApplicationScope.Flight_details.flight.airlineName }</h3></td>
+				</tr>
+				<tr>
+					<td>Source Location : </td>
+					<td><h3>${ApplicationScope.Flight_details.flight.source }</h3></td>
+				</tr>
+				<tr>
+					<td>Destination Location : </td>
+					<td><h3>${ApplicationScope.Flight_details.flight.destination }</h3></td>
+				</tr>
+				<tr>
+					<td>No of Seats : </td>
+					<td><h3>${ApplicationScope.Flight_details.noOfSeats }</h3></td>
+				</tr>
+				<tr>
+					<td>Date of Travel : </td>
+					<td><h3>${ApplicationScope.Flight_details.flight.availabilityDate }</h3></td>
+				</tr>
+				<c:set var="priceStr" value="${ApplicationScope.Flight_details.flight.price}" />
+				<c:set var="price" value="${Integer.parseInt(priceStr)}" />
+				<c:set var="seatsStr" value="${ApplicationScope.Flight_details.noOfSeats}"/>
+				<c:set var="seats" value="${Integer.parseInt(seatsStr)}" />
+				<tr>
+					<td>Total Price : </td>
+					<td><h3>${price*seats}</h3></td>
+				</tr>
+			</table>
+		<br/>
+		<h2>Passenger Details:</h2>
+			<h3>${applicationScope.Passenger_details.firstName }</h3>
+			<h3>${applicationScope.Passenger_details.lastName }</h3>
+			<h3>${applicationScope.Passenger_details.email }</h3>
+			<h3>${applicationScope.Passenger_details.mobileNo }</h3>
+			<h3>${applicationScope.Passenger_details.address.city }</h3>
+			<h3>${applicationScope.Passenger_details.address.state }</h3>
+			<h3>${applicationScope.Passenger_details.address.pincode }</h3>
+<h3><a href="index.html"/>Go to Home</h3>
+</body>
+</html>

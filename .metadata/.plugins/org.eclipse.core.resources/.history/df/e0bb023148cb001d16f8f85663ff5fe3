@@ -1,0 +1,30 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>FlyAway</title>
+</head>
+<body>
+	<table border="2">
+			<tr>
+				<th>Source Locations</th>
+				<th>Destination Locations</th>
+			</tr>
+			<c:forEach var="flight" items="${Loc_list}">
+				<tr>
+					<td>${flight.airlineId}</td>
+					<td>${flight.airlineName}</td>
+					<td>${flight.source}</td>
+					<td>${flight.destination}</td>
+					<td>${flight.availabilityDate}</td>
+					<td>${flight.totalAvailableSeats}</td>
+					<td>${flight.price}</td>
+					<td><a href="Register?flightId=${flight.airlineId}&noOfSeats=${noOfSeats}"/>Select</td>
+				</tr>
+			</c:forEach>
+		</table>
+	<a href="adminHome.html">Back</a>
+</body>
+</html>
